@@ -30,37 +30,41 @@ public class Main {
         initializePageObjects(driver);
 
         //opening wework website
-        Log.info("Navigating to: https://www.wework.com");
-        driver.navigate().to("https://www.wework.com");
+        try {
+            Log.info("Navigating to: https://www.wework.com");
+            driver.navigate().to("https://www.wework.com");
 
-        //
+            //mouse over to location and click location
+            homePage.mouseOver(homePage.getLocationObject());   //mouseover action as asked in assignment. However, this does not open location menu to clicking location object
+            homePage.clickLocations();
 
-        //mouse over to location and click location
-        homePage.mouseOver(homePage.getLocationObject());   //mouseover action as asked in assignment. However, this does not open location menu to clicking location object
-        homePage.clickLocations();
+            //click new york city
+            locationsMenu.clickLocation("New York City");
 
-        //click new york city
-        locationsMenu.clickLocation("New York City");
+            //read all office locations
+            //unable to implement getting office names from map and clicking random office name on map due to following
+            // 1. office names are not available on map, instead there is a office icon for office locations with "we" text
+            // 2. tried to get names from map by clicking "we" icon and reading pop-up but this method is too slow and
+            // unreliable as too many pop-ups have to be opened and closed
 
-        //read all office locations
-        //unable to implement getting office names from map and clicking random office name on map due to following
-        // 1. office names are not available on map, instead there is a office icon for office locations with "we" text
-        // 2. tried to get names from map by clicking "we" icon and reading pop-up but this method is too slow and
-        // unreliable as too many pop-ups have to be opened and closed
-//        officieSelectionPage.getOfficeNamesFromMap();
+//          officieSelectionPage.getOfficeNamesFromMap(); //attempted to get office names from map pop-ups
 
-        // instead reading office names from page office market card object
-        List<String> officeNamesList = officieSelectionPage.getOfficeNamesFromPage();
+            // instead reading office names from page office market card object
+            List<String> officeNamesList = officieSelectionPage.getOfficeNamesFromPage();
 
-        //select random office
-        Random random = new Random();
-        officieSelectionPage.clickOffice(officeNamesList.get(random.nextInt(officeNamesList.size()))); //Selecting random name from office names
+            //select random office
+            Random random = new Random();
+            officieSelectionPage.clickOffice(officeNamesList.get(random.nextInt(officeNamesList.size()))); //Selecting random name from office names
 
-        //log pricing info
-        officeBookingInfoPage.logPriceInfo();
+            //log pricing info
+            officeBookingInfoPage.logPriceInfo();
 
-        driver.close();
-        Log.info("Browser closed");
+        } catch (Exception ex) {
+            Log.error(ex.getMessage(), ex);
+        } finally {
+            driver.close();
+            Log.info("Browser closed");
+        }
     }
 
     private static void initializePageObjects(WebDriver driver) {

@@ -1,5 +1,6 @@
 package com.wework.assignment.pageObjects;
 
+import com.wework.assignment.utilities.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -49,11 +50,13 @@ public class OfficieSelectionPage extends Base {
     }
 
     public List<String> getOfficeNamesFromPage() {
+        Log.info("Reading all office names from office name card objects");
         return driver.findElements(officeCard).stream()
                 .map(element -> element.findElement(officeNameOnCard).getText()).collect(Collectors.toList());
     }
 
     public void clickOffice(String officeName) throws Exception {
+        Log.info("Clicking office card with office name: " + officeName);
         WebElement element = driver.findElements(officeCard).stream()
                 .filter(el -> el.findElement(officeNameOnCard).getText().equals(officeName))
                 .findFirst().orElseThrow(() -> new Exception("We work office: " + officeName + " was not found"));

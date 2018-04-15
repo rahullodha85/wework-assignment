@@ -1,5 +1,6 @@
 package com.wework.assignment.pageObjects;
 
+import com.wework.assignment.utilities.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,7 +20,9 @@ public class LocationsMenu extends Base {
                     .findFirst().orElseThrow(() -> new Exception("Element with text: " + locationText + " was not found"));
             element.click();
         } else {
-            new Exception("Location menu is not open");
+            Exception ex = new Exception("Location menu is not open");
+            Log.error("Location menu is not open", ex);
+            throw ex;
         }
     }
 }

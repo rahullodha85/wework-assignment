@@ -4,6 +4,7 @@ import com.wework.assignment.pageObjects.HomePage;
 import com.wework.assignment.pageObjects.LocationsMenu;
 import com.wework.assignment.pageObjects.OfficieSelectionPage;
 import com.wework.assignment.utilities.DriverUtil;
+import com.wework.assignment.utilities.Log;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
@@ -15,9 +16,11 @@ public class Main {
     private static LocationsMenu locationsMenu;
     private static OfficieSelectionPage officieSelectionPage;
 
+
     public static void main(String[] args) throws Exception {
 
         //setting up selenium web-driver for chrome browser
+        Log.info("Setting up chrome browser with selenium web-driver");
         DriverUtil.setupBrowser();
         WebDriver driver = DriverUtil.openChromeBrowser();
 
@@ -25,6 +28,7 @@ public class Main {
         initializePageObjects(driver);
 
         //opening wework website
+        Log.info("Navigating to: https://www.wework.com");
         driver.navigate().to("https://www.wework.com");
 
         //
@@ -49,11 +53,14 @@ public class Main {
         //select random office
         Random random = new Random();
         officieSelectionPage.clickOffice(officeNamesList.get(random.nextInt(officeNamesList.size()))); //Selecting random name from office names
-        
+
+
         driver.close();
+        Log.info("Browser closed");
     }
 
     private static void initializePageObjects(WebDriver driver) {
+        Log.info("Initializing page object factory");
         homePage = new HomePage(driver);
         locationsMenu = new LocationsMenu(driver);
         officieSelectionPage = new OfficieSelectionPage(driver);

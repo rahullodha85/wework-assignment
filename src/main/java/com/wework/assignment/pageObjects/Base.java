@@ -11,7 +11,7 @@ public class Base {
         this.driver = driver;
     }
 
-    protected boolean isElementDisplayed(By by) throws Exception {
+    protected boolean isElementDisplayed(By by) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 20);
         return webDriverWait.until((WebDriver drv) -> drv.findElement(by).isDisplayed());
     }

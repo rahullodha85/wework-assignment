@@ -2,6 +2,7 @@ package com.wework.assignment.runner;
 
 import com.wework.assignment.pageObjects.HomePage;
 import com.wework.assignment.pageObjects.LocationsMenu;
+import com.wework.assignment.pageObjects.OfficeBookingInfoPage;
 import com.wework.assignment.pageObjects.OfficieSelectionPage;
 import com.wework.assignment.utilities.DriverUtil;
 import com.wework.assignment.utilities.Log;
@@ -15,6 +16,7 @@ public class Main {
     private static HomePage homePage;
     private static LocationsMenu locationsMenu;
     private static OfficieSelectionPage officieSelectionPage;
+    private static OfficeBookingInfoPage officeBookingInfoPage;
 
 
     public static void main(String[] args) throws Exception {
@@ -54,6 +56,8 @@ public class Main {
         Random random = new Random();
         officieSelectionPage.clickOffice(officeNamesList.get(random.nextInt(officeNamesList.size()))); //Selecting random name from office names
 
+        //log pricing info
+        officeBookingInfoPage.logPriceInfo();
 
         driver.close();
         Log.info("Browser closed");
@@ -64,5 +68,6 @@ public class Main {
         homePage = new HomePage(driver);
         locationsMenu = new LocationsMenu(driver);
         officieSelectionPage = new OfficieSelectionPage(driver);
+        officeBookingInfoPage = new OfficeBookingInfoPage(driver);
     }
 }
